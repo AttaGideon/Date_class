@@ -18,6 +18,9 @@ public:
 	bool checkDate(int day, int month, int year);  // Check if the entered date is correct
 	bool isBefore(Date &otherDate);  // defines which date comes first
 	Date addDay();  // add a day to the correct date
+	
+	// TODO: add operators if required for the test cases
+	/* <, > ==, ...*/
 
 private:
 	int _day;
