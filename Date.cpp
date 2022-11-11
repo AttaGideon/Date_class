@@ -83,6 +83,8 @@ bool Date::isBefore(Date &otherDate)
 bool Date::CheckMonth(int day, int month, int year)
 {
 	int dayCountInAMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	// TODO: proper check for the days in the month 
+	// and also if the year is a leap year ????
   
 	return false;
 }
