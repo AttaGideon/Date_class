@@ -6,28 +6,28 @@ Date::Date()
 	_month = 1;
 	_year = 1970;
 }
-
 Date::Date(int day, int month, int year)
 {
+	if(!(CheckMonth(day, month, year)))
+		std::cout << "Can't set Date: Invalid Argument" << std::endl;
+	else
+	{
 		_day = day;
 		_month = month;
 		_year = year;
+	}
 }
-
 Date::Date(const Date &otherDate)
 {
 	_day = otherDate._day;
 	_month = otherDate._month;
 	_year = otherDate._year;
 }
-
 Date::~Date(){}
-
 void Date::DisplayDate()
 {
 	std::cout << _day <<"." << _month << "." << _year << std::endl;
 }
-
 bool Date::setDate(int day, int month, int year)
 {
 	if(!(CheckMonth(day, month, year)))
@@ -35,7 +35,6 @@ bool Date::setDate(int day, int month, int year)
 		std::cout << "Can't set Date: Invalid Argument" << std::endl;
 		return false;
 	}
-
 	else
 	{
 		_day = day;
@@ -43,9 +42,7 @@ bool Date::setDate(int day, int month, int year)
 		_year = year;
 		return true;
 	}
-
 }
-
 bool Date::checkDate(int day, int month, int year)
 {
 	if(!(CheckMonth(day, month, year)))
@@ -62,8 +59,7 @@ bool Date::checkDate(int day, int month, int year)
 			}
 
 		else return true;
-	}
-
+}
 bool Date::isBefore(Date &otherDate)
 {
 	bool check = CheckMonth(otherDate._day, otherDate._month, otherDate._year);
@@ -79,16 +75,22 @@ bool Date::isBefore(Date &otherDate)
 
 		else return false;
 }
-
 bool Date::CheckMonth(int day, int month, int year)
 {
 	int dayCountInAMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	// TODO: proper check for the days in the month 
-	// and also if the year is a leap year ????
-  
-	return false;
+	if(month >0 && month <= 12)
+	{
+		if(((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+			dayCountInAMonth[1] = 29;
+		if(day > 0 && day <= dayCountInAMonth[month-1])
+			_dayCount = dayCountInAMonth[month -1];
+		else
+			return false;
+		return true;
+	}
+	else
+		return false;
 }
-
 Date Date::addDay()
 {
 	int iday = _day;
@@ -101,7 +103,6 @@ Date Date::addDay()
 		return Date();
 	}
 	if(iday < _dayCount) _day += 1;
-
 	if(iday == _dayCount && imonth < 12)
 	{
 		_month += 1;
